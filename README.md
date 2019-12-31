@@ -1,16 +1,12 @@
-![https://circleci.com/gh/cayennes/kanji-colorize.svg?style=svg]
-
 # HanziColorizer
-
-.. image:: kanji-colorize-examples.png
 
 ### About
 
 ``kanji_colorize.py`` is a script for coloring, resizing, and renaming
 the stroke order diagrams from the
-[HanziVG] (https://github.com/Connum/hanzivg) project.  This is a fork from 
-the [KanjiColorizer] (https://github.com/cayennes/kanji-colorize) project and is 
-meant to be the Hanzi version for [anki] (http://ankisrs.net/).
+[HanziVG](https://github.com/Connum/hanzivg) project.  This is a fork from 
+the [KanjiColorizer](https://github.com/cayennes/kanji-colorize) project and is 
+meant to be the Hanzi version for [anki](http://ankisrs.net/).
 
 ### Using with Anki
 
