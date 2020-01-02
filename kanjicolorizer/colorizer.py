@@ -65,7 +65,7 @@ def colorize(character, mode="spectrum", saturation=0.95, value=0.75,
 # Setup
 
 source_directory = os.path.join(os.path.dirname(__file__),
-                                'data', 'kanjivg', 'kanji')
+                                'data', 'hanzivg', 'hanzi')
 
 
 # Classes

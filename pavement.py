@@ -28,21 +28,21 @@ import zipfile
 options(
     anki=Bunch(
         builddir=path('build') / 'anki_addon',
-        zip=path('dist') / 'KanjiColorizerAnkiAddon.zip'))
+        zip=path('dist') / 'HanziColorizerAnkiAddon.zip'))
 
 
 setup(
-    name='KanjiColorizer',
+    name='HanziColorizer',
     description='script and module to create colored stroke order '
-        'diagrams based on KanjiVG data',
-    long_description=open('README.rst').read(),
+        'diagrams based on HanziVG data',
+    long_description=open('README.md').read(),
     version='0.12',
-    author='Cayenne',
-    author_email='cayennes@gmail.com',
-    url='http://github.com/cayennes/kanji-colorize',
+    author='David',
+    author_email='davidb7@bushlabs.com',
+    url='https://github.com/davidb7/hanzi-colorize',
     packages=['kanjicolorizer'],
     scripts=['kanji_colorize.py'],
-    package_data={'kanjicolorizer': ['data/kanjivg/kanji/*.svg']},
+    package_data={'kanjicolorizer': ['data/hanzivg/hanzi/*.svg']},
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',

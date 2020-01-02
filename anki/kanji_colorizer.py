@@ -60,8 +60,8 @@ config += str(addon_config["value"])
 config += " --image-size "
 config += str(addon_config["image-size"])
 
-modelNameSubstring = 'japanese'
-srcField           = 'Kanji'
+modelNameSubstring = 'chinese'
+srcField           = 'Hanzi'
 dstField           = 'Diagram'
 
 # avoid errors due to invalid config
@@ -77,10 +77,10 @@ kc = KanjiColorizer(config)
 
 def modelIsCorrectType(model):
     '''
-    Returns True if model has Japanese in the name and has both srcField
+    Returns True if model has Chinese in the name and has both srcField
     and dstField; otherwise returns False
     '''
-    # Does the model name have Japanese in it?
+    # Does the model name have Chinese in it?
     model_name = model['name'].lower()
     fields = mw.col.models.fieldNames(model)
     return (modelNameSubstring in model_name and
@@ -90,7 +90,7 @@ def modelIsCorrectType(model):
 
 def characters_to_colorize(s):
     '''
-    Given a string, returns a lost of characters to colorize
+    Given a string, returns a list of characters to colorize
 
     If the string consists of only a single character, returns a list
     containing that character.  If it is longer, returns a list of  only the
