@@ -8,6 +8,7 @@ kanji
 MANIFEST
 setup.py
 venv
+.vscode
 
 !/test/kanjivg
 !/test/kanjivg/kanji
