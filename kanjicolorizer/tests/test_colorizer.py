@@ -120,18 +120,22 @@ class KanjiVGInitTest(unittest.TestCase):
 class KanjiVGCreateFromFilenameTest(unittest.TestCase):
 
     def test_without_variant_with_hex_inits(self):
-        k = KanjiVG._create_from_filename('06f22.svg')
-        self.assertEqual(k.character, '漢')
+        k = KanjiVG._create_from_filename('06905.svg')
+        self.assertEqual(k.character, '椅')
         self.assertEqual(k.variant, '')
 
-    def test_with_variant_inits(self):
-        k = KanjiVG._create_from_filename('05b57-Kaisho.svg')
-        self.assertEqual(k.character, '字')
-        self.assertEqual(k.variant, 'Kaisho')
+    # HanziVG currently doesn't have any variants.
+    # These tests will be re-enabled when it does.
+    # def test_with_variant_inits(self):
+    #     k = KanjiVG._create_from_filename('05b57-Kaisho.svg')
+    #     self.assertEqual(k.character, '字')
+    #     self.assertEqual(k.variant, 'Kaisho')
 
-    def test_five_digit_inits(self):
-        k = KanjiVG._create_from_filename('26951.svg')
-        self.assertEqual(k.character, '𦥑')
+    # HanziVG currently doesn't have any 5 digit characters.
+    # These tests will be re-enabled when it does.
+    # def test_five_digit_inits(self):
+    #     k = KanjiVG._create_from_filename('26951.svg')
+    #     self.assertEqual(k.character, '𦥑')
 
     def test_correct_format_nonexistent_file_raises_exception(self):
         '''
