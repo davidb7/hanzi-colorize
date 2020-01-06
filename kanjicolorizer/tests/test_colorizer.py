@@ -26,50 +26,40 @@ import os
 from kanjicolorizer import colorizer
 from kanjicolorizer.colorizer import KanjiVG, KanjiColorizer
 
-TOTAL_NUMBER_CHARACTERS = 11458
+TOTAL_NUMBER_CHARACTERS = 345
 
 
 class KanjiVGInitTest(unittest.TestCase):
 
-    def test_valid_ascii_character_inits(self):
-        k = KanjiVG('a')
-        self.assertEqual(k.character, 'a')
-        self.assertEqual(k.variant, '')
-
-    def test_valid_ascii_character_contains_named_stroke_group(self):
-        '''
-        This is a proxy for having read the correct file
-        '''
-        k = KanjiVG('a')
-        self.assertIn('kvg:StrokePaths_00061', k.svg)
-
     def test_valid_nonascii_character_inits(self):
-        k = KanjiVG('あ')
-        self.assertEqual(k.character, 'あ')
+        k = KanjiVG('去')
+        self.assertEqual(k.character, '去')
         self.assertEqual(k.variant, '')
 
     def test_valid_nonascii_character_contains_named_stroke_group(self):
         '''
         This is a proxy for having read the correct file
         '''
-        k = KanjiVG('あ')
-        self.assertIn('kvg:StrokePaths_03042', k.svg)
+        k = KanjiVG('去')
+        self.assertIn('kvg:StrokePaths_053bb', k.svg)
 
-    def test_valid_variant_inits(self):
-        k = KanjiVG('字', 'Kaisho')
-        self.assertEqual(k.character, '字')
-        self.assertEqual(k.variant, 'Kaisho')
+    # HanziVG currently doesn't have any variants.
+    # These tests will be re-enabled when it does.
+    # def test_valid_variant_inits(self):
+    #     k = KanjiVG('字', 'Kaisho')
+    #     self.assertEqual(k.character, '字')
+    #     self.assertEqual(k.variant, 'Kaisho')
 
-    def test_valid_variant_contains_named_stroke_group(self):
-        '''
-        This is a proxy for having read the correct file
-        '''
-        k = KanjiVG('字', 'Kaisho')
-        self.assertIn('kvg:StrokePaths_05b57-Kaisho', k.svg)
+    # def test_valid_variant_contains_named_stroke_group(self):
+    #     '''
+    #     This is a proxy for having read the correct file
+    #     '''
+    #     k = KanjiVG('字', 'Kaisho')
+    #     self.assertIn('kvg:StrokePaths_05b57-Kaisho', k.svg)
 
-    def test_explicit_none_variant_inits_to_empty_string(self):
-        k = KanjiVG('字', None)
-        self.assertEqual(k.variant, '')
+    # def test_explicit_none_variant_inits_to_empty_string(self):
+    #     k = KanjiVG('字', None)
+    #     self.assertEqual(k.variant, '')
 
     def test_with_invalid_character_raises_correct_ex_args(self):
         with self.assertRaises(colorizer.InvalidCharacterError) as cm:
@@ -130,18 +120,22 @@ class KanjiVGInitTest(unittest.TestCase):
 class KanjiVGCreateFromFilenameTest(unittest.TestCase):
 
     def test_without_variant_with_hex_inits(self):
-        k = KanjiVG._create_from_filename('06f22.svg')
-        self.assertEqual(k.character, '漢')
+        k = KanjiVG._create_from_filename('06905.svg')
+        self.assertEqual(k.character, '椅')
         self.assertEqual(k.variant, '')
 
-    def test_with_variant_inits(self):
-        k = KanjiVG._create_from_filename('05b57-Kaisho.svg')
-        self.assertEqual(k.character, '字')
-        self.assertEqual(k.variant, 'Kaisho')
+    # HanziVG currently doesn't have any variants.
+    # These tests will be re-enabled when it does.
+    # def test_with_variant_inits(self):
+    #     k = KanjiVG._create_from_filename('05b57-Kaisho.svg')
+    #     self.assertEqual(k.character, '字')
+    #     self.assertEqual(k.variant, 'Kaisho')
 
-    def test_five_digit_inits(self):
-        k = KanjiVG._create_from_filename('26951.svg')
-        self.assertEqual(k.character, '𦥑')
+    # HanziVG currently doesn't have any 5 digit characters.
+    # These tests will be re-enabled when it does.
+    # def test_five_digit_inits(self):
+    #     k = KanjiVG._create_from_filename('26951.svg')
+    #     self.assertEqual(k.character, '𦥑')
 
     def test_correct_format_nonexistent_file_raises_exception(self):
         '''
@@ -165,27 +159,27 @@ class KanjiVGCreateFromFilenameTest(unittest.TestCase):
 class KanjiVGAsciiFilenameTest(unittest.TestCase):
 
     def test_without_variant_has_correct_filename(self):
-        k = KanjiVG('あ')
-        self.assertEqual(k.ascii_filename, '03042.svg')
+        k = KanjiVG('椅')
+        self.assertEqual(k.ascii_filename, '06905.svg')
 
-    def test_with_variant_has_correct_filename(self):
-        k = KanjiVG('字', 'Kaisho')
-        self.assertEqual(k.ascii_filename, '05b57-Kaisho.svg')
+    # def test_with_variant_has_correct_filename(self):
+    #     k = KanjiVG('字', 'Kaisho')
+    #     self.assertEqual(k.ascii_filename, '05b57-Kaisho.svg')
 
-    def test_five_digit_unicode_character_has_correct_filename(self):
-        k = KanjiVG('𦥑')
-        self.assertEqual(k.ascii_filename, '26951.svg')
+    # def test_five_digit_unicode_character_has_correct_filename(self):
+    #     k = KanjiVG('𦥑')
+    #     self.assertEqual(k.ascii_filename, '26951.svg')
 
 
 class KanjiVGCharacterFilenameTest(unittest.TestCase):
 
     def test_without_variant_has_correct_filename(self):
-        k = KanjiVG('あ')
-        self.assertEqual(k.character_filename, 'あ.svg')
+        k = KanjiVG('椅')
+        self.assertEqual(k.character_filename, '椅.svg')
 
-    def test_with_variant_has_correct_filename(self):
-        k = KanjiVG('字', 'Kaisho')
-        self.assertEqual(k.character_filename, '字-Kaisho.svg')
+    # def test_with_variant_has_correct_filename(self):
+    #     k = KanjiVG('字', 'Kaisho')
+    #     self.assertEqual(k.character_filename, '字-Kaisho.svg')
 
 
 class KanjiVGGetAllTest(unittest.TestCase):
@@ -262,19 +256,19 @@ class KanjiColorizerCharactersOptionTest(unittest.TestCase):
     def test_default_writes_some_characters(self):
         kc = KanjiColorizer()
         kc.write_all()
-        self.assertOpenedFileForWriting('a.svg')
-        self.assertOpenedFileForWriting('あ.svg')
+        self.assertOpenedFileForWriting('去.svg')
+        self.assertOpenedFileForWriting('椅.svg')
 
     def test_writes_a_character(self):
         kc = KanjiColorizer()
-        kc.settings.characters = 'あ'
+        kc.settings.characters = '椅'
         kc.write_all()
-        self.assertOpenedFileForWriting('あ.svg')
+        self.assertOpenedFileForWriting('椅.svg')
         self.assertNumberFilesOpenedForWriting(1)
 
     def test_writes_only_one_character(self):
         kc = KanjiColorizer()
-        kc.settings.characters = 'あ'
+        kc.settings.characters = '椅'
         kc.write_all()
         self.assertNumberFilesOpenedForWriting(1)
 

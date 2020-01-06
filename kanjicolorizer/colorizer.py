@@ -49,7 +49,7 @@ def colorize(character, mode="spectrum", saturation=0.95, value=0.75,
     """
     Returns a string containing the colorized svg for the character
 
-    >>> svg = colorize('a', mode='spectrum', image_size=100,
+    >>> svg = colorize('椅', mode='spectrum', image_size=100,
     ...                saturation=0.95, value=0.75)
     >>> 'has been modified' in svg
     True
@@ -81,20 +81,20 @@ class KanjiVG(object):
 
         Either give just the character
 
-        >>> k1 = KanjiVG('漢')
+        >>> k1 = KanjiVG('去')
         >>> print(k1.character)
-        漢
+        去
         >>> k1.variant
         ''
 
-        Or if the character has a variant, give that as a second
-        argument
+        # Or if the character has a variant, give that as a second
+        # argument
 
-        >>> k2 = KanjiVG('字', 'Kaisho')
-        >>> print(k2.character)
-        字
-        >>> k2.variant
-        'Kaisho'
+        # >>> k2 = KanjiVG('字', 'Kaisho')
+        # >>> print(k2.character)
+        # 字
+        # >>> k2.variant
+        # 'Kaisho'
 
         Raises InvalidCharacterError if the character and variant don't
         correspond to known data
@@ -102,7 +102,7 @@ class KanjiVG(object):
         >>> k = KanjiVG('Л')
         Traceback (most recent call last):
             ...
-        kanjicolorizer.colorizer.InvalidCharacterError: ('\\u041b', '')
+        InvalidCharacterError: ('\\u041b', '')
 
         '''
         self.character = character
@@ -125,9 +125,9 @@ class KanjiVG(object):
         Alternate constructor that uses a KanjiVG filename; used by
         get_all().
 
-        >>> k = KanjiVG._create_from_filename('00061.svg')
+        >>> k = KanjiVG._create_from_filename('06905.svg')
         >>> k.character
-        'a'
+        '椅'
         '''
         m = re.match('^([0-9a-f]*)-?(.*?).svg$', filename)
         return cls(chr(int(m.group(1), 16)), m.group(2))
@@ -137,9 +137,9 @@ class KanjiVG(object):
         '''
         An SVG filename in ASCII using the same format KanjiVG uses.
 
-        >>> k = KanjiVG('漢')
+        >>> k = KanjiVG('椅')
         >>> k.ascii_filename
-        '06f22.svg'
+        '06905.svg'
 
         May raise InvalidCharacterError for some kinds of invalid
         character/variant combinations; this should only happen during
@@ -159,9 +159,9 @@ class KanjiVG(object):
         '''
         An SVG filename that uses the unicode character
 
-        >>> k = KanjiVG('漢')
+        >>> k = KanjiVG('椅')
         >>> print(k.character_filename)
-        漢.svg
+        椅.svg
         '''
         if not self.variant:
             return '%s.svg' % self.character
@@ -200,7 +200,7 @@ class KanjiColorizer:
     >>> kc = KanjiColorizer(my_args)
 
     To get an svg for a single character
-    >>> colored_svg = kc.get_colored_svg('a')
+    >>> colored_svg = kc.get_colored_svg('椅')
 
     To create a set of diagrams:
     >>> kc.write_all()
@@ -317,11 +317,11 @@ class KanjiColorizer:
         for character.
 
         >>> kc = KanjiColorizer()
-        >>> svg = kc.get_colored_svg('a')
+        >>> svg = kc.get_colored_svg('椅')
         >>> svg.splitlines()[0]
         '<?xml version="1.0" encoding="UTF-8"?>'
-        >>> svg.find('00061')
-        1780
+        >>> svg.find('06905')
+        3003
         >>> svg.find('has been modified')
         54
 
@@ -393,17 +393,17 @@ class KanjiColorizer:
 
         >>> kc = KanjiColorizer('')
         >>> original_svg = open(
-        ...    os.path.join(source_directory, '06f22.svg'),
+        ...    os.path.join(source_directory, '04e0a.svg'),
         ...    'r', encoding='utf-8').read()
         >>> desired_svg = open(
         ...    os.path.join(
         ...        'test', 'default_results', 'kanji-colorize-spectrum',
-        ...        '漢.svg'),
+        ...        '上.svg'),
         ...    'r', encoding='utf-8').read()
         >>> import difflib
         >>> for line in difflib.context_diff(
-        ...        kc._modify_svg(original_svg).splitlines(1),
-        ...        desired_svg.splitlines(1)):
+        ...        kc._modify_svg(original_svg).splitlines(True),
+        ...        desired_svg.splitlines(True)):
         ...     print(line)
         ...
         """
@@ -456,11 +456,11 @@ class KanjiColorizer:
         Return the correct filename, based on args.filename-mode
 
         >>> kc = KanjiColorizer('--filename-mode code')
-        >>> kc._get_dst_filename(KanjiVG('a'))
-        '00061.svg'
+        >>> kc._get_dst_filename(KanjiVG('椅'))
+        '06905.svg'
         >>> kc = KanjiColorizer('--filename-mode character')
-        >>> kc._get_dst_filename(KanjiVG('a'))
-        'a.svg'
+        >>> kc._get_dst_filename(KanjiVG('椅'))
+        '椅.svg'
 
         """
         if (self.settings.filename_mode == 'character'):
