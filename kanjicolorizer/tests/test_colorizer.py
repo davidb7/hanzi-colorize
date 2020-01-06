@@ -31,45 +31,35 @@ TOTAL_NUMBER_CHARACTERS = 11458
 
 class KanjiVGInitTest(unittest.TestCase):
 
-    def test_valid_ascii_character_inits(self):
-        k = KanjiVG('a')
-        self.assertEqual(k.character, 'a')
-        self.assertEqual(k.variant, '')
-
-    def test_valid_ascii_character_contains_named_stroke_group(self):
-        '''
-        This is a proxy for having read the correct file
-        '''
-        k = KanjiVG('a')
-        self.assertIn('kvg:StrokePaths_00061', k.svg)
-
     def test_valid_nonascii_character_inits(self):
-        k = KanjiVG('あ')
-        self.assertEqual(k.character, 'あ')
+        k = KanjiVG('去')
+        self.assertEqual(k.character, '去')
         self.assertEqual(k.variant, '')
 
     def test_valid_nonascii_character_contains_named_stroke_group(self):
         '''
         This is a proxy for having read the correct file
         '''
-        k = KanjiVG('あ')
-        self.assertIn('kvg:StrokePaths_03042', k.svg)
+        k = KanjiVG('去')
+        self.assertIn('kvg:StrokePaths_053bb', k.svg)
 
-    def test_valid_variant_inits(self):
-        k = KanjiVG('字', 'Kaisho')
-        self.assertEqual(k.character, '字')
-        self.assertEqual(k.variant, 'Kaisho')
+    # HanziVG currently doesn't have any variants.
+    # These tests will be re-enabled when it does.
+    # def test_valid_variant_inits(self):
+    #     k = KanjiVG('字', 'Kaisho')
+    #     self.assertEqual(k.character, '字')
+    #     self.assertEqual(k.variant, 'Kaisho')
 
-    def test_valid_variant_contains_named_stroke_group(self):
-        '''
-        This is a proxy for having read the correct file
-        '''
-        k = KanjiVG('字', 'Kaisho')
-        self.assertIn('kvg:StrokePaths_05b57-Kaisho', k.svg)
+    # def test_valid_variant_contains_named_stroke_group(self):
+    #     '''
+    #     This is a proxy for having read the correct file
+    #     '''
+    #     k = KanjiVG('字', 'Kaisho')
+    #     self.assertIn('kvg:StrokePaths_05b57-Kaisho', k.svg)
 
-    def test_explicit_none_variant_inits_to_empty_string(self):
-        k = KanjiVG('字', None)
-        self.assertEqual(k.variant, '')
+    # def test_explicit_none_variant_inits_to_empty_string(self):
+    #     k = KanjiVG('字', None)
+    #     self.assertEqual(k.variant, '')
 
     def test_with_invalid_character_raises_correct_ex_args(self):
         with self.assertRaises(colorizer.InvalidCharacterError) as cm:
