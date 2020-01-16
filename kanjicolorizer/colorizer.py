@@ -584,10 +584,10 @@ The original SVG has the following copyright:
         >>> kc = KanjiColorizer('--image-size 100')
         >>> kc._resize_svg(svg)
         '<svg  width="100" height = "100" viewBox="0 0 100 100"><!109><g id="kvg:StrokePaths_" transform="scale(0.9174311926605505,0.9174311926605505)"><path /></g></svg>'
-        >>> svg = '<svg  width="109" height="109" viewBox="0 0 109 109"><!109><g id="kvg:StrokePaths_"><path /></g><g id="kvg:StrokeNumbers_"><text /></g></svg>'
+        >>> svg = '<svg  width="109" height="109" viewBox="0 0 109 109"><!109><g id="hvg:StrokePaths_"><path /></g><g id="hvg:StrokeNumbers_"><text /></g></svg>'
         >>> kc = KanjiColorizer('--image-size 327')
         >>> kc._resize_svg(svg)
-        '<svg  width="327" height = "327" viewBox="0 0 327 327"><!109><g id="kvg:StrokePaths_" transform="scale(3.0,3.0)"><path /></g><g id="kvg:StrokeNumbers_" transform="scale(3.0,3.0)"><text /></g></svg>'
+        '<svg  width="327" height = "327" viewBox="0 0 327 327"><!109><g id="hvg:StrokePaths_" transform="scale(3.0,3.0)"><path /></g><g id="hvg:StrokeNumbers_" transform="scale(3.0,3.0)"><text /></g></svg>'
         """
         ratio = repr(float(self.settings.image_size) / 109)
         svg = svg.replace(
@@ -595,7 +595,7 @@ The original SVG has the following copyright:
             '{0}" height = "{0}" viewBox="0 0 {0} {0}'.format(
                 str(self.settings.image_size)))
         svg = re.sub(
-            '(<g id="kvg:Stroke.*?)(>)',
+            '(<g id="[kh]vg:Stroke.*?)(>)',
             r'\1 transform="scale(' + ratio + ',' + ratio + r')"\2',
             svg)
         return svg
